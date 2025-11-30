@@ -298,7 +298,7 @@ function ProductList({ onHomeClick }) {
             </div>
             
             {!showCart ? (
-                <div class="product-grid">
+                <div id="root" class="product-grid">
                    {plantsArray.map((category, index) => ( 
                      <div key={index}> 
                       <h1>
