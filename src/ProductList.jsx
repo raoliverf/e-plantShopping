@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './ProductList.css'
 import CartItem from './CartItem';
 import { addItem } from './CartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
-function ProductList({ onHomeClick }) {
+function ProductList() {
     const dispatch = useDispatch();
+    
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(true);
     const [addedToCart, setAddedToCart] = useState({});
@@ -228,7 +229,7 @@ function ProductList({ onHomeClick }) {
         padding: '15px',
         display: 'flex',
         justifyContent: 'space-between',
-        alignIems: 'center',
+        alignItems: 'center',
         fontSize: '20px',
     }
     const styleObjUl = {
@@ -253,12 +254,12 @@ function ProductList({ onHomeClick }) {
     const handleCartClick = (e) => {
         e.preventDefault();
         setShowCart(true);
-        setShowPlants(false); // Set showCart to true when cart icon is clicked
+        setShowPlants(false); 
     };
     const handlePlantsClick = (e) => {
         e.preventDefault();
-        setShowPlants(true); // Set showAboutUs to true when "About Us" link is clicked
-        setShowCart(false); // Hide the cart when navigating to About Us
+        setShowPlants(true); 
+        setShowCart(false); 
     };
 
     const handleContinueShopping = (e) => {
@@ -298,9 +299,9 @@ function ProductList({ onHomeClick }) {
             </div>
             
             {!showCart ? (
-                <div id="root" class="product-grid">
+                <div className="product-grid">
                    {plantsArray.map((category, index) => ( 
-                     <div key={index}> 
+                     <div className="product-grid" key={index}> 
                       <h1>
                        <div>{category.category}</div> 
                       </h1>
@@ -314,7 +315,7 @@ function ProductList({ onHomeClick }) {
           />
           <div className="product-title">{plant.name}</div> 
           <div className="product-description">{plant.description}</div> 
-          <div className="product-cost">${plant.cost}</div> 
+          <div className="product-cost">{plant.cost}</div> 
           <button
             className="product-button"
             onClick={() => handleAddToCart(plant)}
