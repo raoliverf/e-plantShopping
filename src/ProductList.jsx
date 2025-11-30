@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ProductList.css'
 import CartItem from './CartItem';
+import { addItem } from './CartSlice';
 
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
@@ -257,6 +258,15 @@ function ProductList({ onHomeClick }) {
         setShowCart(false);
         setShowPlants(true);
     };
+
+    const handleAddToCart = (product) => {
+        dispatch(addItem(product)); 
+      
+        setAddedToCart((prevState) => ({ 
+          [product.name]: true, 
+        }));
+      };
+
     return (
         <div>
             <div className="navbar" style={styleObj}>
@@ -279,8 +289,32 @@ function ProductList({ onHomeClick }) {
             </div>
             {!showCart ? (
                 <div id="root" class="product-grid">
-
-                </div>
+                   {plantsArray.map((category, index) => ( 
+  <div key={index}> 
+    <h1>
+      <div>{category.category}</div> 
+    </h1>
+    <div className="product-list"> 
+      {category.plants.map((plant, plantIndex) => ( 
+        <div className="product-card" key={plantIndex}> 
+          <img 
+            className="product-image" 
+            src={plant.image} 
+            alt={plant.name} 
+          />
+          <div className="product-title">{plant.name}</div> 
+          <div className="product-description">{plant.description}</div> 
+          <div className="product-cost">${plant.cost}</div> 
+          <button
+            className="product-button"
+            onClick={() => handleAddToCart(plant)} >Add to Cart
+          </button>
+        </div>
+      ))}
+    </div>
+  </div>
+))}
+</div>
             ) : (
                 <CartItem onContinueShopping={handleContinueShopping} />
             )}
